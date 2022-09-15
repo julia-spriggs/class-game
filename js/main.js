@@ -7,17 +7,30 @@ class Game {
         this.player = new Player();
         this.attachEventListeners();
         
-        setInterval(() => {
-            this.obstacles.forEach((obstacleInstance) => {
-                obstacleInstance.moveDown();
-            })
-        }, 60);
+        
 
         setInterval(() => {
             //create new obstacle
             const newObstacle = new Obstacle();
             this.obstacles.push(newObstacle);
         }, 3000);
+
+        //move obstacles
+        setInterval(() => {
+            this.obstacles.forEach((obstacleInstance) => {
+            obstacleInstance.moveDown();
+
+             if (
+                    this.player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
+                    this.player.positionX + this.player.width > obstacleInstance.positionX &&
+                    this.player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
+                    this.player.height + this.player.positionY > obstacleInstance.positionY
+                ) {
+                    location.href = 'gameover.html';
+                }
+
+            })
+        }, 60);
 
     }
     attachEventListeners(){
