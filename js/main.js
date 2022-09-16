@@ -13,7 +13,7 @@ class Game {
             //create new obstacle
             const newObstacle = new Obstacle();
             this.obstacles.push(newObstacle);
-        }, 3000);
+        }, 1000);
 
         //move obstacles
         setInterval(() => {
@@ -29,8 +29,15 @@ class Game {
                     location.href = 'gameover.html';
                 }
 
+                //remove old obstacles
+                if(obstacleInstance.positionY < 0) {
+                    obstacleInstance.domElement.remove();
+                    this.obstacles.shift();
+                    console.log(this.obstacles);
+                }
+
             })
-        }, 60);
+        }, 30);
 
     }
     attachEventListeners(){
